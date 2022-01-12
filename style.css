@@ -25,8 +25,7 @@ body {
   color: var(--text1);
   font-family: Kumbh Sans;
   font-weight: 400;
-  font-size: 4.2vw;
-  font-size: min(4.2vw, 1.75rem);
+  font-size: 1rem;
 }
 
 h1,
@@ -37,21 +36,34 @@ h3 {
 }
 
 .container {
-  width: max(375px, 85vw);
+  width: 375px;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   position: relative;
-  margin-bottom: 40px;
-  min-height: 100%;
+  padding-inline: 24px;
+}
+
+.faq-box {
+  z-index: 80;
+  padding-inline: 24px;
+  border-radius: 22px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 148px;
+  padding-bottom: 40px;
 }
 
 .composition {
   display: block;
-  position: absolute;
-  width: min(63vw, 400px);
-  top: 40px;
+  position: relative;
+  width: 236px;
+  top: -106px;
 }
 
 #img-woman-desktop,
@@ -75,41 +87,29 @@ h3 {
   background-image: url(./images/bg-pattern-mobile.svg);
   background-repeat: no-repeat;
   background-size: 100%;
-  /* background-color: red; */
   position: absolute;
-  /* top: 106px; */
   transform: translateY(-42%);
 }
 
-.faq-box {
-  z-index: 80;
-  padding-inline: min(8.75vw, 26px);
-  border-radius: min(8vw, 36px);
-  background: white;
-  width: calc(100% - 48px);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: min(calc(40px + 28.8vw), 220px);
-  padding-top: min(35vw, 190px);
-  margin-bottom: 50px;
-  padding-bottom: min(8.75vw, 40px);
-}
-
 .faq-box h1 {
-  margin-bottom: 30px;
-  font-size: min(8vw, 3.5rem);
+  margin-top: -50px;
+  font-size: 1.875rem;
+  margin-bottom: 40px;
+  text-align: center;
 }
 
-.faq-box .content-box {
+.content-box {
   position: relative;
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
-  border-bottom: var(--divider) 2px solid;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+  border-bottom: var(--divider) 1px solid;
 }
 
-.faq-box .content-box .label {
+.content-box.active {
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+.content-box .label {
   position: relative;
   color: var(--text2);
   font-weight: 400;
@@ -118,45 +118,145 @@ h3 {
   order: 90;
   justify-content: space-between;
   align-items: center;
-  font-size: 3.4vw;
+  font-size: 0.8125rem;
+  padding-block: 0.5em; /*The clickable area was too small. I had to take 0.5em from the content-box padding in non-active state*/
 }
 
-.faq-box .content-box .label:hover {
+.content-box .label:hover {
   color: var(--accent);
 }
-.faq-box .content-box .label img {
+.content-box .label img {
   transition: 0.5s;
-  width: min(100%, 3vw);
 }
 
-.faq-box .content-box .content {
+.content-box .content {
   position: relative;
-  height: 0;
+  max-height: 0;
   overflow: hidden;
-  transition: 0.5s;
+  transition: 0.3s;
   overflow-y: auto;
   color: var(--text2);
   font-weight: 400;
-  font-size: 3.2vw;
-  padding-right: 2rem;
+  font-size: 0.75rem;
+  padding-right: 2em;
+  scrollbar-color: #fff0 #fff0; /*Aparently only work on firefox*/
 }
 
-.faq-box .content-box.active .content {
-  height: auto;
-  transition: height 0.5s !important;
+.content-box.active .content {
+  max-height: 65px; /*height:auto does not accept transition*/
   padding-top: 10px;
   line-height: 1.5;
+  transition: 0.5s;
 }
 
-.faq-box .content-box.active .label {
+.content-box.active .label {
   color: var(--text1);
   font-weight: 700;
 }
 
-.faq-box .content-box.active .label img {
+.content-box.active .label img {
   transform: rotate(180deg);
 }
 
 .attribution {
   display: none;
+}
+
+@media (min-width: 480px) {
+  .faq-box {
+    margin-top: 185px;
+  }
+  .composition {
+    width: 300px;
+    top: -137px;
+  }
+  .faq-box h1 {
+    margin: -80px 0 40px;
+  }
+  .faq-box label {
+    font-size: 0.875rem;
+  }
+  .faq-box content {
+    font-size: 0.8125rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    justify-content: center;
+    align-items: center;
+  }
+  .container {
+    width: 1024px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .faq-box {
+    flex-direction: row;
+    width: 921px;
+    height: 509px;
+    margin: 0;
+    justify-content: flex-start;
+    padding-inline: 0;
+    padding-top: 30px;
+    position: relative;
+    left: 21px;
+  }
+
+  .composition {
+    top: auto;
+    width: 472px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-block: 150px; /*to fit desktop background shadow*/
+    overflow: hidden;
+  }
+
+  .composition::after {
+    background-image: url(./images/bg-pattern-desktop.svg);
+    position: absolute;
+    background-position: 100% 100%;
+    background-size: 200%;
+    top: 338px;
+    right: 85px;
+  }
+
+  #img-woman-desktop {
+    display: block;
+    width: 100%;
+    object-fit: contain;
+    z-index: 100;
+    transform: translateX(-85px);
+  }
+
+  #img-woman-mobile {
+    display: none;
+  }
+
+  .faq-box-inner {
+    width: 348px;
+    margin: 20px 0 0;
+    align-self: flex-start;
+  }
+
+  #img-box {
+    display: block;
+    position: absolute;
+    z-index: 120;
+    left: -93px;
+    top: calc(50% - 45px);
+  }
+
+  .faq-box h1 {
+    text-align: start;
+    margin: 0 0 40px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1200px;
+  }
 }
