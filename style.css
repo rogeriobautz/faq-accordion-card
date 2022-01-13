@@ -111,7 +111,7 @@ h3 {
 }
 .content-box .label {
   position: relative;
-  color: var(--text2);
+  color: var(--text1);
   font-weight: 400;
   cursor: pointer;
   display: flex;
